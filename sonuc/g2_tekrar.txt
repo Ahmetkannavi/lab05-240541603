@@ -1,0 +1,13 @@
+-- 1. Tur: Varsayilan seviye (READ COMMITTED)
+B: BEGIN;
+B: SELECT kredi FROM krediler WHERE uye_id = 7; --> 150
+A: UPDATE krediler SET kredi = kredi + 30 WHERE uye_id = 7;
+B: SELECT kredi FROM krediler WHERE uye_id = 7; --> 180 (Degisti!)
+B: COMMIT;
+
+-- 2. Tur: REPEATABLE READ seviyesi
+B: BEGIN ISOLATION LEVEL REPEATABLE READ;
+B: SELECT kredi FROM krediler WHERE uye_id = 7; --> 180
+A: UPDATE krediler SET kredi = kredi + 30 WHERE uye_id = 7;
+B: SELECT kredi FROM krediler WHERE uye_id = 7; --> 180 (Degismedi!)
+B: COMMIT;

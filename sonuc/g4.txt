@@ -1,0 +1,16 @@
+-- 1. Uye 9 kredi artisi ve COMMIT
+A: BEGIN;
+A: UPDATE krediler SET kredi = kredi + 40 WHERE uye_id = 9;
+A: COMMIT;
+A: SELECT kredi FROM krediler WHERE uye_id = 9; --> 340
+
+-- 2. Docker restart sonrasi kontrol (Durability - WAL)
+-- docker compose restart postgres
+A: SELECT kredi FROM krediler WHERE uye_id = 9; --> 340 (Veri korundu!)
+
+-- 3. Mimari Gozlem
+SHOW shared_buffers;
+-- shared_buffers: 128MB
+
+SELECT pid, state, query FROM pg_stat_activity;
+-- active/idle session bilgileri listelendi.

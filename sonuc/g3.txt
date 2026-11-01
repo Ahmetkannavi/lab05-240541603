@@ -1,0 +1,21 @@
+-- 1. Tur: Kayip Guncelleme (Yanlis Kalip)
+A: BEGIN;
+B: BEGIN;
+A: SELECT kredi FROM krediler WHERE uye_id = 5; --> 400
+B: SELECT kredi FROM krediler WHERE uye_id = 5; --> 400
+A: UPDATE krediler SET kredi = 410 WHERE uye_id = 5;
+A: COMMIT;
+B: UPDATE krediler SET kredi = 410 WHERE uye_id = 5;
+B: COMMIT;
+-- Sonuc: SELECT kredi FROM krediler WHERE uye_id = 5; --> 410 (Bir yukleme kayboldu!)
+
+-- 2. Tur: Dogru Kalip (Atomik UPDATE veya FOR UPDATE)
+A: BEGIN;
+A: SELECT kredi FROM krediler WHERE uye_id = 5 FOR UPDATE; --> 410
+B: BEGIN;
+B: SELECT kredi FROM krediler WHERE uye_id = 5 FOR UPDATE; --> (B kilitlendi, bekliyor)
+A: UPDATE krediler SET kredi = kredi + 10 WHERE uye_id = 5;
+A: COMMIT; --> (A commit edince B kilitden cikti)
+B: UPDATE krediler SET kredi = kredi + 10 WHERE uye_id = 5;
+B: COMMIT;
+-- Sonuc: SELECT kredi FROM krediler WHERE uye_id = 5; --> 430 (Toplam dogru cikti!)

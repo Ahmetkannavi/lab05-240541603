@@ -1,0 +1,10 @@
+A: BEGIN ISOLATION LEVEL SERIALIZABLE;
+B: BEGIN ISOLATION LEVEL SERIALIZABLE;
+A: SELECT kredi FROM krediler WHERE uye_id = 11; --> 250
+B: SELECT kredi FROM krediler WHERE uye_id = 11; --> 250
+A: UPDATE krediler SET kredi = 260 WHERE uye_id = 11;
+B: UPDATE krediler SET kredi = 270 WHERE uye_id = 11;
+A: COMMIT;
+B: COMMIT; --> ERROR: could not serialize access due to concurrent update
+
+Uygulama kodu bu hatayi aldiginda islemi (transaction) bastan itibaren tekrar denemelidir (retry mechanism).
