@@ -16,18 +16,15 @@ jobs:
           echo "=========================================="
           echo "       LAB 05 DETAYLI NOT RAPORU          "
           echo "=========================================="
-          
-          if [ -f "ogrno.txt" ]; then echo "[+10] ??renci Numaras? Dosyas? Tamam"; SCORE=; fi
-          if [ -f "sql/g1_transfer.sql" ] && [ -f "sonuc/g1.txt" ]; then echo "[+20] G?rev 1 (Atomicity) Tamam"; SCORE=; fi
-          if [ -f "sonuc/g2_kirli.txt" ] && [ -f "sonuc/g2_tekrar.txt" ]; then echo "[+20] G?rev 2 (Isolation) Tamam"; SCORE=; fi
-          if [ -f "sonuc/g3.txt" ]; then echo "[+20] G?rev 3 (Lost Update) Tamam"; SCORE=; fi
-          if [ -f "sonuc/g4.txt" ]; then echo "[+15] G?rev 4 (Durability) Tamam"; SCORE=; fi
-          if [ -f "sonuc/ai_elestiri.md" ]; then echo "[+15] Yapay Zeka Ele?tirisi Tamam"; SCORE=; fi
-          
+          if [ -f "ogrno.txt" ]; then echo "[+10] ??renci Numaras? Dosyas? Tamam"; SCORE=$((SCORE+10)); fi
+          if [ -f "sql/g1_transfer.sql" ] && [ -f "sonuc/g1.txt" ]; then echo "[+20] G?rev 1 (Atomicity) Tamam"; SCORE=$((SCORE+20)); fi
+          if [ -f "sonuc/g2_kirli.txt" ] && [ -f "sonuc/g2_tekrar.txt" ]; then echo "[+20] G?rev 2 (Isolation) Tamam"; SCORE=$((SCORE+20)); fi
+          if [ -f "sonuc/g3.txt" ]; then echo "[+20] G?rev 3 (Lost Update) Tamam"; SCORE=$((SCORE+20)); fi
+          if [ -f "sonuc/g4.txt" ]; then echo "[+15] G?rev 4 (Durability) Tamam"; SCORE=$((SCORE+15)); fi
+          if [ -f "sonuc/ai_elestiri.md" ]; then echo "[+15] Yapay Zeka Ele?tirisi Tamam"; SCORE=$((SCORE+15)); fi
           BONUS=0
           if [ -f "sonuc/bonus.txt" ]; then echo "[+5] Bonus G?rev Tamam"; BONUS=5; fi
-          
-          TOTAL=
+          TOTAL=$((SCORE + BONUS))
           echo "=========================================="
-          echo " TOPLAM PUAN:  / 100 (Bonus Dâhil) "
+          echo " TOPLAM PUAN: $TOTAL / 100 (Bonus Dâhil) "
           echo "=========================================="
