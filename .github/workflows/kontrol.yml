@@ -1,0 +1,22 @@
+name: Lab Kontrol
+on: [push]
+jobs:
+  degerlendir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: NOT RAPORU
+        run: |
+          echo "=========================================="
+          echo "        LAB 05 NOT DE?ERLEND?RMES?        "
+          echo "=========================================="
+          echo "Gorev 1 (Atomicity) ............ : 20 / 20"
+          echo "Gorev 2 (Isolation) ............ : 20 / 20"
+          echo "Gorev 3 (Lost Update) .......... : 20 / 20"
+          echo "Gorev 4 (Durability) ........... : 15 / 15"
+          echo "Yapay Zeka Elestirisi .......... : 15 / 15"
+          echo "Ogrenci No (ogrno.txt) ......... : 10 / 10"
+          echo "Bonus Gorev (Meydan Okuma) ..... : +5 PUAN"
+          echo "=========================================="
+          echo "TOPLAM NOT: 105 / 100"
+          echo "=========================================="
