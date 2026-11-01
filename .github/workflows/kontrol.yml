@@ -10,16 +10,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Kontrol Dosyalarini Kontrol Et
+      - name: Puan Hesapla ve Kontrol Et
         run: |
-          echo "=== LAB 05 KONTROL BA?LADI ==="
-          test -f ogrno.txt && echo "[OK] ogrno.txt mevcut"
-          test -f sql/g1_transfer.sql && echo "[OK] g1_transfer.sql mevcut"
-          test -f sonuc/g1.txt && echo "[OK] sonuc/g1.txt mevcut"
-          test -f sonuc/g2_kirli.txt && echo "[OK] sonuc/g2_kirli.txt mevcut"
-          test -f sonuc/g2_tekrar.txt && echo "[OK] sonuc/g2_tekrar.txt mevcut"
-          test -f sonuc/g3.txt && echo "[OK] sonuc/g3.txt mevcut"
-          test -f sonuc/g4.txt && echo "[OK] sonuc/g4.txt mevcut"
-          test -f sonuc/ai_elestiri.md && echo "[OK] sonuc/ai_elestiri.md mevcut"
-          test -f sonuc/bonus.txt && echo "[OK] sonuc/bonus.txt mevcut (+5 Puan)"
-          echo "=== TUM DOSYALAR TAMAM! ==="
+          SCORE=0
+          echo "=========================================="
+          echo "       LAB 05 DETAYLI NOT RAPORU          "
+          echo "=========================================="
+          
+          if [ -f "ogrno.txt" ]; then echo "[+10] ??renci Numaras? Dosyas? Tamam"; SCORE=; fi
+          if [ -f "sql/g1_transfer.sql" ] && [ -f "sonuc/g1.txt" ]; then echo "[+20] G?rev 1 (Atomicity) Tamam"; SCORE=; fi
+          if [ -f "sonuc/g2_kirli.txt" ] && [ -f "sonuc/g2_tekrar.txt" ]; then echo "[+20] G?rev 2 (Isolation) Tamam"; SCORE=; fi
+          if [ -f "sonuc/g3.txt" ]; then echo "[+20] G?rev 3 (Lost Update) Tamam"; SCORE=; fi
+          if [ -f "sonuc/g4.txt" ]; then echo "[+15] G?rev 4 (Durability) Tamam"; SCORE=; fi
+          if [ -f "sonuc/ai_elestiri.md" ]; then echo "[+15] Yapay Zeka Ele?tirisi Tamam"; SCORE=; fi
+          
+          BONUS=0
+          if [ -f "sonuc/bonus.txt" ]; then echo "[+5] Bonus G?rev Tamam"; BONUS=5; fi
+          
+          TOTAL=
+          echo "=========================================="
+          echo " TOPLAM PUAN:  / 100 (Bonus Dâhil) "
+          echo "=========================================="
