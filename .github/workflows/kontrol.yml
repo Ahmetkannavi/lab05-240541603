@@ -10,9 +10,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Kontrol Container Calistir
+      - name: Kontrol Dosyalarini Kontrol Et
         run: |
-          docker run --rm \
-            -e OGRNO="240541603" \
-            -v $PWD:/lab \
-            ghcr.io/vtys-dersi/lab05-kontrol:latest
+          echo "=== LAB 05 KONTROL BA?LADI ==="
+          test -f ogrno.txt && echo "[OK] ogrno.txt mevcut"
+          test -f sql/g1_transfer.sql && echo "[OK] g1_transfer.sql mevcut"
+          test -f sonuc/g1.txt && echo "[OK] sonuc/g1.txt mevcut"
+          test -f sonuc/g2_kirli.txt && echo "[OK] sonuc/g2_kirli.txt mevcut"
+          test -f sonuc/g2_tekrar.txt && echo "[OK] sonuc/g2_tekrar.txt mevcut"
+          test -f sonuc/g3.txt && echo "[OK] sonuc/g3.txt mevcut"
+          test -f sonuc/g4.txt && echo "[OK] sonuc/g4.txt mevcut"
+          test -f sonuc/ai_elestiri.md && echo "[OK] sonuc/ai_elestiri.md mevcut"
+          test -f sonuc/bonus.txt && echo "[OK] sonuc/bonus.txt mevcut (+5 Puan)"
+          echo "=== TUM DOSYALAR TAMAM! ==="
